@@ -1,0 +1,27 @@
+{
+  "name": "bootstrap-datepicker",
+  "description": "A date/time picker plugin for Bootstrap 3",
+  "main": "build/datepicker.js",
+  "ignore": [
+    "**/.*",
+    "LICENSE",
+    "*.json",
+    "src",
+    "*.yml",
+    "Gemfile",
+    "Gemfile.lock",
+    "*.md",
+    "bower_components",
+    "node_modules",
+    "test",
+    "composer.json",
+    "Gruntfile.js",
+    "package.json",
+    "package-lock.json"
+  ],
+  "authors": [
+    "W.D.M.Group, Ukraine <wdmg.com.ua@gmail.com>"
+  ],
+  "homepage": "http://wdmg.com.ua/",
+  "license": "MIT"
+}
