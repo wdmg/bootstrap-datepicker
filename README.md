@@ -1,2 +1,2 @@
-# bootstrap-datepicker
-DatePicker plugin for Bootstrap framework
+# Bootstrap DatePicker
+Date and time picker plugin for Bootstrap framework
