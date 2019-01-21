@@ -23,5 +23,6 @@
     "W.D.M.Group, Ukraine <wdmg.com.ua@gmail.com>"
   ],
   "homepage": "http://wdmg.com.ua/",
-  "license": "MIT"
+  "license": "MIT",
+  "version": "1.0.0"
 }
