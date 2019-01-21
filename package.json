@@ -1,0 +1,33 @@
+{
+  "name": "bootstrap-datepicker",
+  "description": "A date/time picker plugin for Bootstrap 3",
+  "keywords": [
+    "twitter-bootstrap",
+    "bootstrap",
+    "datepicker",
+    "timepicker"
+  ],
+  "author": {
+    "name": "W.D.M.Group, Ukraine",
+    "email": "wdmg.com.ua@gmail.com",
+    "url": "https://wdmg.com.ua/"
+  },
+  "main": "build/datepicker.js",
+  "dependencies": {
+    "bootstrap": "^3.3",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "grunt": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wdmg/bootstrap-datepicker.git"
+  },
+  "homepage": "http://wdmg.github.io/bootstrap-datepicker/",
+  "bugs": {
+    "url": "https://github.com/wdmg/bootstrap-datepicker/issues"
+  },
+  "license": "MIT",
+  "version": "1.0.0"
+}
