@@ -1,5 +1,5 @@
 {
-  "name": "bootstrap-datepicker-plugin",
+  "name": "wdmg/bootstrap-datepicker-plugin",
   "description": "A date/time picker plugin for Bootstrap 3",
   "keywords": [
     "twitter-bootstrap",
@@ -10,7 +10,7 @@
   "homepage": "https://github.com/wdmg/bootstrap-datepicker/",
   "authors": [
     {
-      "name": "W.D.M.Group, Ukraine ",
+      "name": "W.D.M.Group, Ukraine",
       "email": "wdmg.com.ua@gmail.com"
     }
   ],

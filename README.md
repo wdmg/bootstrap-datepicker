@@ -6,6 +6,7 @@ Date and time picker plugin for Bootstrap framework
     $ npm install bootstrap-datepicker-plugin
     $ bower install bootstrap-datepicker-plugin
     $ yarn add bootstrap-datepicker-plugin
+    $ composer require bootstrap-datepicker-plugin
 
 # Usage example
 
