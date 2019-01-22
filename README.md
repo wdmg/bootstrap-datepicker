@@ -42,7 +42,7 @@ For example use the input-group:
 | className     | string   | '.datepicker'   | Class name of input group.          |
 | input         | string   | '.form-control' | Selector or jQuery object of input. |
 | toggle        | string   | '.input-group-btn > button' | Selector of datepicker popover toggle. |
-| template      | string   | `<div class="popover popover-datepicker" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>` |
+| template      | string   | `<div class="popover popover-datepicker" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>` | Popover template. |
 | daysStrings   | array    | [{'short': 'Mon', 'full': 'Monday'}, ...] | Days of week, starting on Monday. |
 | monthsStrings | array    | [{'short': 'Jan', 'full': 'January'}, ...] | Months, starting on January. |
 | debug         | boolean  | `false`         | Flag if need debug in console log. |
