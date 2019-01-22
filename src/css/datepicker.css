@@ -1,4 +1,27 @@
-.popover-datepicker {
+.popover.popover-datepicker {
   min-width: 360px; }
+  .popover.popover-datepicker .popover-title {
+    padding: 0;
+    margin: 0;
+    line-height: 3.5rem;
+    font-size: 1.65rem;
+    text-align: center; }
+  .popover.popover-datepicker .table-calendar > thead > tr > th, .popover.popover-datepicker .table-calendar > tbody > tr > th, .popover.popover-datepicker .table-calendar > tfoot > tr > th, .popover.popover-datepicker .table-calendar > thead > tr > td, .popover.popover-datepicker .table-calendar > tbody > tr > td, .popover.popover-datepicker .table-calendar > tfoot > tr > td {
+    border-top: none; }
+  .popover.popover-datepicker .table-calendar .prev-month-day,
+  .popover.popover-datepicker .table-calendar .next-month-day,
+  .popover.popover-datepicker .table-calendar .current-month-day {
+    padding: 0;
+    text-align: center;
+    text-decoration: none; }
+  .popover.popover-datepicker .table-calendar .prev-month-day > .btn.disabled,
+  .popover.popover-datepicker .table-calendar .next-month-day > .btn.disabled {
+    color: #474747 !important; }
+  .popover.popover-datepicker .table-calendar .current-month-day > .btn {
+    border: none;
+    border-radius: 0;
+    text-decoration: none; }
+    .popover.popover-datepicker .table-calendar .current-month-day > .btn:hover, .popover.popover-datepicker .table-calendar .current-month-day > .btn:focus {
+      background: #f7f7f7; }
 
 /*# sourceMappingURL=datepicker.css.map */
