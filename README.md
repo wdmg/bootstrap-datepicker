@@ -29,29 +29,30 @@ For example use the input-group:
     <script type="text/javascript">
         $(document).ready(function () {
             $('#datepicker').datepicker({
-                format: 'mm/dd/yyyy'
+                format: 'mm/dd/yyyy',
+                ...
             });
         });
     </script>
 
 # Options
 
-| Name          | Type     | Default         | Description                         |
-| ------------- |:--------:| --------------- | ----------------------------------- |
-| format        | string   | 'mm/dd/yyyy'    | Default format of date/time.        |
-| className     | string   | '.datepicker'   | Class name of input group.          |
+| Name          | Type     | Default     | Description                   |
+|:------------- |:--------:|:----------- |:----------------------------- |
+| format        | string   | 'mm/dd/yyyy' | Default format of date/time. |
+| className     | string   | '.datepicker' | Class name of input group.  |
 | input         | string   | '.form-control' | Selector or jQuery object of input. |
 | toggle        | string   | '.input-group-btn > button' | Selector of datepicker popover toggle. |
 | template      | string   | `<div class="popover popover-datepicker" role="tooltip"...></div>` | Popover template. |
 | daysStrings   | array    | [{'short': 'Mon', 'full': 'Monday'}, ...] | Days of week, starting on Monday. |
 | monthsStrings | array    | [{'short': 'Jan', 'full': 'January'}, ...] | Months, starting on January. |
-| debug         | boolean  | `false`         | Flag if need debug in console log. |
+| debug         | boolean  | `false`     | Flag if need debug in console log. |
 
 
 # Methods
 
-| Name          | Type     | Description                         |
-| ------------- |:--------:| ----------------------------------- |
+| Name          | Type     | Description                                 |
+|:------------- |:--------:|:------------------------------------------- |
 | onShow        | function | The function that is called when the datepicker popover is ready to be displayed. |
 | onShown       | function | The function that is called when the datepicker popover is displayed. |
 | onHide        | function | The function that is called when datepicker popover to prepare for hiding. |
@@ -59,3 +60,7 @@ For example use the input-group:
 | onGetPrev     | function | The function that is called when you select the previous month or year. |
 | onGetNext     | function | The function that is called when you select the next month or year. |
 | onSetValue    | function | The function that is called when the date is selected. Sets new date value to input. |
+
+
+# Status and version
+* v.1.0.2 - Plugin in progress development.grunt

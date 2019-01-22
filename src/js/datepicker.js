@@ -30,13 +30,12 @@
 
       // Public options and methods
       var defaults = {
-         debug: false, // boolean, flag if need debug console log
-         format: 'mm/dd/yyyy', // string of date/time
+         format: 'mm/dd/yyyy', // string, default format of date/time
          className: '.datepicker', // string, class name of input group
-         input: '.form-control', // string of input selector or jQuery object
-         toggle: '.input-group-btn > button', // string of datepicker popover toggle selector
-         template: '<div class="popover popover-datepicker" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
-         daysStrings: [ // Days of week, starting on Monday
+         input: '.form-control', // string, selector or jQuery object of input
+         toggle: '.input-group-btn > button', // string, selector of datepicker popover toggle
+         template: '<div class="popover popover-datepicker" role="tooltip"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>', // string, popover template
+         daysStrings: [ // array, days of week, starting on Monday
             {
                'short': 'Mon',
                'full': 'Monday'
@@ -66,7 +65,7 @@
                'full': 'Sunday'
             }
          ],
-         monthsStrings: [ // Months, starting on January
+         monthsStrings: [ // array, months, starting on January
             {
                'short': 'Jan',
                'full': 'January'
@@ -116,13 +115,14 @@
                'full': 'December'
             }
          ],
-         onShow: function onShow() { },
-         onShown: function onShown() { },
-         onHide: function onHide() { },
-         onHidden: function onHidden() { },
-         onGetPrev: function onHidden() { },
-         onGetNext: function onHidden() { },
-         onSetValue: function onShow() { }
+         debug: false, // boolean, flag if need debug in console log
+         onShow: function onShow() { }, // The function that is called when the datepicker popover is ready to be displayed
+         onShown: function onShown() { }, // The function that is called when the datepicker popover is displayed
+         onHide: function onHide() { }, // The function that is called when datepicker popover to prepare for hiding
+         onHidden: function onHidden() { }, // The function that is called when the datepicker popover is hidden
+         onGetPrev: function onGetPrev() { }, // The function that is called when you select the previous month or year
+         onGetNext: function onGetNext() { }, // The function that is called when you select the next month or year
+         onSetValue: function onSetValue() { } // The function that is called when the date is selected. Sets new date value to input
       };
 
       var DatePicker = (function() {
