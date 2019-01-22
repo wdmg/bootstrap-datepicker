@@ -10,6 +10,10 @@
   "homepage": "https://github.com/wdmg/bootstrap-datepicker/",
   "authors": [
     {
+      "name": "Alexsander Vyshnyvetskyy",
+      "email": "alex.vyshnyvetskyy@gmail.com"
+    },
+    {
       "name": "W.D.M.Group, Ukraine",
       "email": "wdmg.com.ua@gmail.com"
     }
