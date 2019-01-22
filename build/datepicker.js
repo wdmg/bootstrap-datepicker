@@ -30,7 +30,7 @@
 
       // Public options and methods
       var defaults = {
-         debug: true, // boolean, flag if need debug console log
+         debug: false, // boolean, flag if need debug console log
          format: 'mm/dd/yyyy', // string of date/time
          className: '.datepicker', // string, class name of input group
          input: '.form-control', // string of input selector or jQuery object
