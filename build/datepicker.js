@@ -120,9 +120,9 @@
          onShown: function onShown() { },
          onHide: function onHide() { },
          onHidden: function onHidden() { },
-         onGetPrev: function onHidden() { },
-         onGetNext: function onHidden() { },
-         onSetValue: function onShow() { }
+         onGetPrev: function onGetPrev() { },
+         onGetNext: function onGetNext() { },
+         onSetValue: function onSetValue() { }
       };
 
       var DatePicker = (function() {
