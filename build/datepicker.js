@@ -165,6 +165,9 @@
             _this._header = null;
             _this._html = null;
 
+            // Configure default unput date
+            _this.currentDate = null;
+
             // Configure date and time variables
             _this.currentYear = null;
             _this.currentMonth = null;
@@ -231,6 +234,9 @@
             _this._$element.on("click", 'a[data-set]', function (event) {
                event.preventDefault();
                var newDate = $(event.currentTarget).data('set');
+
+               _this._$element.find('a[data-set]').removeClass('btn-primary').addClass('btn-link');
+               $(event.currentTarget).removeClass('btn-link').addClass('btn-primary');
 
                if(_this.currentHour && _this.currentMinute && _this.currentSecond)
                    newDate += 'T' + _this.zeroFormatting(_this.currentHour) + ':' + _this.zeroFormatting(_this.currentMinute) + ':' + _this.zeroFormatting(_this.currentSecond);
@@ -405,7 +411,8 @@
                    var header, html;
 
                    // Get the current datetime
-                   this.currentDate = new Date();
+                   if(!this.currentDate)
+                       this.currentDate = new Date();
 
                    if (year) // Set the current year
                        this.currentYear = parseInt(year);
@@ -636,6 +643,7 @@
                   var newInputDate = new Date(newDate);
                   var value = this.zeroFormatting(newInputDate.getUTCFullYear()) + '-' + this.zeroFormatting((newInputDate.getUTCMonth() + 1)) + '-' + this.zeroFormatting(newInputDate.getUTCDate()) + ' ' + this.zeroFormatting(newInputDate.getUTCHours()) + ':' + this.zeroFormatting(newInputDate.getUTCMinutes()) + ':' + this.zeroFormatting(newInputDate.getUTCSeconds());
                   $input.val(value);
+                  this.currentDate = newInputDate;
                }
             }, setTime: {
                  value: function setTime() {
