@@ -28,6 +28,9 @@ module.exports = function(grunt) {
             }
         },
         autoprefixer: {
+            options: {
+                browsers: ['last 2 versions', 'ie 11']
+            },
             dist: {
                 files: {
                     'src/css/datepicker.css': ['src/css/datepicker.css']
@@ -55,7 +58,7 @@ module.exports = function(grunt) {
             },
             styles: {
                 files: ['build/datepicker.scss'],
-                tasks: ['sass', 'cssmin'],
+                tasks: ['sass', 'autoprefixer', 'cssmin'],
                 options: {
                     spawn: false
                 }
