@@ -167,27 +167,42 @@
                 "HH/mm/ss": new RegExp(/^(0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
                 "HH:mm:ss": new RegExp(/^(0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
 
+                "DD/MM/YYYY HH/mm/ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(\d{4})\ (0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
                 "DD/MM/YYYY HH:mm:ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(\d{4})\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+
+                "DD.MM.YYYY HH/mm/ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\.(0[1-9]|1[0-2])\.(\d{4})\ (0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
                 "DD.MM.YYYY HH:mm:ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\.(0[1-9]|1[0-2])\.(\d{4})\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+
+                "DD-MM-YYYY HH/mm/ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\-(0[1-9]|1[0-2])\-(\d{4})\ (0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
                 "DD-MM-YYYY HH:mm:ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\-(0[1-9]|1[0-2])\-(\d{4})\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+
+                "YYYY/MM/DD HH/mm/ss": new RegExp(/^(\d{4})\/(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
                 "YYYY/MM/DD HH:mm:ss": new RegExp(/^(\d{4})\/(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+
+                "YYYY.MM.DD HH/mm/ss": new RegExp(/^(\d{4})\.(0[1-9]|1[0-2])\.(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
                 "YYYY.MM.DD HH:mm:ss": new RegExp(/^(\d{4})\.(0[1-9]|1[0-2])\.(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+
+                "YYYY-MM-DD HH/mm/ss": new RegExp(/^(\d{4})\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
                 "YYYY-MM-DD HH:mm:ss": new RegExp(/^(\d{4})\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+
+                "MM/DD/YYYY HH/mm/ss": new RegExp(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(\d{4})\ (0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
                 "MM/DD/YYYY HH:mm:ss": new RegExp(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(\d{4})\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
-
-
             };
 
             // Set date and datetime format
-            if (typeof (_this._config.format) == 'string') {
+            if (typeof (_this._config.format) == 'string' && _this._$input.val().length > 0) {
                 _this._isdatetime = true;
                 _this._dateFormat = _this._config.format.charAt(0);
                 _this.inputDate = new Date(_this._$input.val().replace(' ', 'T'));
+
+                _this.currentDate = _this.inputDate;
+                console.log(_this.currentDate);
+
                 if(_this._config.debug)
                     console.log('Set date format', _this._dateFormat);
 
-            } else {
-                //_this._dateFormat = 'M';
+            } else if (_this._$input.val().length > 0) {
+
                 $.each(patterns, function(key, pattern) {
                     if(pattern.test(_this._$input.val())) {
                         _this._dateFormat = key;
@@ -225,8 +240,11 @@
                             _this._istime = true;
                         } else if (
                             parts && (
+                                _this._dateFormat == "DD/MM/YYYY HH/mm/ss" ||
                                 _this._dateFormat == "DD/MM/YYYY HH:mm:ss" ||
+                                _this._dateFormat == "DD.MM.YYYY HH/mm/ss" ||
                                 _this._dateFormat == "DD.MM.YYYY HH:mm:ss" ||
+                                _this._dateFormat == "DD-MM-YYYY HH/mm/ss" ||
                                 _this._dateFormat == "DD-MM-YYYY HH:mm:ss"
                             )
                         ) {
@@ -234,15 +252,21 @@
                             _this._isdatetime = true;
                         } else if (
                             parts && (
+                                _this._dateFormat == "YYYY/MM/DD HH/mm/ss" ||
                                 _this._dateFormat == "YYYY/MM/DD HH:mm:ss" ||
+                                _this._dateFormat == "YYYY.MM.DD HH/mm/ss" ||
                                 _this._dateFormat == "YYYY.MM.DD HH:mm:ss" ||
+                                _this._dateFormat == "YYYY-MM-DD HH/mm/ss" ||
                                 _this._dateFormat == "YYYY-MM-DD HH:mm:ss"
                             )
                         ) {
                             _this.inputDate = new Date(parseInt(parts[1], 10), parseInt(parts[2], 10) - 1, parseInt(parts[3], 10), parseInt(parts[4], 10), parseInt(parts[5], 10), parseInt(parts[6], 10));
                             _this._isdatetime = true;
                         } else if (
-                            parts && _this._dateFormat == "MM/DD/YYYY HH:mm:ss"
+                            parts && (
+                                _this._dateFormat == "MM/DD/YYYY HH/mm/ss" ||
+                                _this._dateFormat == "MM/DD/YYYY HH:mm:ss"
+                            )
                         ) {
                             _this.inputDate = new Date(parseInt(parts[3], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10), parseInt(parts[4], 10), parseInt(parts[5], 10), parseInt(parts[6], 10));
                             _this._isdatetime = true;
@@ -256,6 +280,12 @@
                 if(_this._config.debug)
                     console.log('Autodetect date format', _this._dateFormat);
 
+            } else {
+                _this._isdatetime = true;
+                _this.inputDate = new Date();
+                _this._dateFormat = _this._config.format;
+                _this.currentDate = _this.inputDate;
+                console.log(_this.currentDate);
             }
 
             // Add base datepicker class to .input-group
@@ -333,13 +363,14 @@
              $(document).on('click', function(event) {
                  _this._$popover.each(function() {
                      if (!$(this).is(event.target) && $(this).has(event.target).length === 0 && $('.popover').has(event.target).length === 0) {
-                         (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
+                         (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false;
                      }
                  });
              });
 
             // Registered event listeners
             _this._$element.on("click", 'a[data-set]', function (event) {
+                event.stopPropagation();
                event.preventDefault();
                var newDate = $(event.currentTarget).data('set');
 
@@ -355,25 +386,29 @@
             });
 
             _this._$element.on("click", 'a[data-rel="prev-year"]', function (event) {
-               event.preventDefault();
+                event.stopPropagation();
+                event.preventDefault();
                _this.getPrevYear();
                return _this._config.onGetPrev.call(_this);
             });
 
             _this._$element.on("click", 'a[data-rel="next-year"]', function (event) {
-               event.preventDefault();
+                event.stopPropagation();
+                event.preventDefault();
                _this.getNextYear();
                return _this._config.onGetNext.call(_this);
             });
 
             _this._$element.on("click", 'a[data-rel="prev-month"]', function (event) {
-               event.preventDefault();
+                event.stopPropagation();
+                event.preventDefault();
                _this.getPrevMonth();
                return _this._config.onGetPrev.call(_this);
             });
 
             _this._$element.on("click", 'a[data-rel="next-month"]', function (event) {
-               event.preventDefault();
+                event.stopPropagation();
+                event.preventDefault();
                _this.getNextMonth();
                return _this._config.onGetNext.call(_this);
             });
@@ -677,7 +712,8 @@
                        html += '</tbody>';
                        html += '</table>';
 
-                       this._header = false;
+                       if(this._istime)
+                            this._header = false;
                    }
 
                    this._html = html;
@@ -760,9 +796,9 @@
                   value = value.replace('mm', this.zeroFormatting(newInputDate.getMinutes()));
                   value = value.replace('ss', this.zeroFormatting(newInputDate.getSeconds()));*/
 
-                   value = value.replace('YYYY', this.zeroFormatting(newInputDate.getFullYear()));
-                   value = value.replace('MM', this.zeroFormatting((newInputDate.getMonth() + 1)));
-                   value = value.replace('DD', this.zeroFormatting(newInputDate.getDate()));
+                   value = value.replace('YYYY', this.zeroFormatting(newInputDate.getUTCFullYear()));
+                   value = value.replace('MM', this.zeroFormatting((newInputDate.getUTCMonth() + 1)));
+                   value = value.replace('DD', this.zeroFormatting(newInputDate.getUTCDate()));
                    value = value.replace('HH', this.zeroFormatting(this.currentHour));
                    value = value.replace('mm', this.zeroFormatting(this.currentMinute));
                    value = value.replace('ss', this.zeroFormatting(this.currentSecond));
@@ -774,12 +810,7 @@
             },
             setTime: {
                  value: function setTime() {
-                     var newDate = this.zeroFormatting(this.currentYear) + '-' + this.zeroFormatting(parseInt(this.currentMonth) + 1) + '-' + this.zeroFormatting(this.currentDay);
-
-                     if(this.currentHour && this.currentMinute && this.currentSecond)
-                         newDate += 'T' + this.zeroFormatting(this.currentHour) + ':' + this.zeroFormatting(this.currentMinute) + ':' + this.zeroFormatting(this.currentSecond);
-
-                     this.setDate(newDate);
+                     this.setDate(this.currentDate);
                  }
             }
          }, {

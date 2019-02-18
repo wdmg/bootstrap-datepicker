@@ -53,6 +53,17 @@
                                 </span>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="control-label" for="some-datetime4">Date or time:</label>
+                            <div id="datepicker4" class="input-group">
+                                <input type="text" id="some-datetime4" class="form-control" name="form[some-datetime3]">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
 
 
 
@@ -69,6 +80,9 @@
                 $('#datepicker1').datepicker();
                 $('#datepicker2').datepicker();
                 $('#datepicker3').datepicker();
+                $('#datepicker4').datepicker({
+                    format: "YYYY/MM/DD HH:mm:ss"
+                });
             });
         </script>
     </body>

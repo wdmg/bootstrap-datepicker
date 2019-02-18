@@ -29,7 +29,7 @@ For example use the input-group:
     <script type="text/javascript">
         $(document).ready(function () {
             $('#datepicker').datepicker({
-                format: 'mm/dd/yyyy',
+                format: 'YYYY/MM/DD',
                 ...
             });
         });
@@ -39,7 +39,7 @@ For example use the input-group:
 
 | Name          | Type     | Default     | Description                   |
 |:------------- |:--------:|:----------- |:----------------------------- |
-| format        | string   | 'mm/dd/yyyy' | Default format of date/time. |
+| format        | string   | 'DD/MM/YYYY' | Default format of date/time. |
 | className     | string   | '.datepicker' | Class name of input group.  |
 | input         | string   | '.form-control' | Selector or jQuery object of input. |
 | toggle        | string   | '.input-group-btn > button' | Selector of datepicker popover toggle. |
@@ -48,6 +48,33 @@ For example use the input-group:
 | monthsStrings | array    | [{'short': 'Jan', 'full': 'January'}, ...] | Months, starting on January. |
 | debug         | boolean  | `false`     | Flag if need debug in console log. |
 
+
+# Support formats
+
+| Format        |
+|:------------- |
+| DD/MM/YYYY HH/mm/ss |
+| DD/MM/YYYY HH:mm:ss |
+| DD.MM.YYYY HH/mm/ss |
+| DD.MM.YYYY HH:mm:ss |
+| DD-MM-YYYY HH/mm/ss |
+| DD-MM-YYYY HH:mm:ss |
+| YYYY/MM/DD HH/mm/ss |
+| YYYY/MM/DD HH:mm:ss |
+| YYYY.MM.DD HH/mm/ss |
+| YYYY.MM.DD HH:mm:ss |
+| YYYY-MM-DD HH/mm/ss |
+| YYYY-MM-DD HH:mm:ss |
+| MM/DD/YYYY HH:mm:ss |
+| DD/MM/YYYY |
+| DD.MM.YYYY |
+| DD-MM-YYYY |
+| YYYY/MM/DD |
+| YYYY.MM.DD |
+| YYYY-MM-DD |
+| MM/DD/YYYY |
+| HH/mm/ss |
+| HH:mm:ss |
 
 # Methods
 
@@ -63,4 +90,4 @@ For example use the input-group:
 
 
 # Status and version
-* v.1.0.2 - Plugin in progress development.grunt
+* v.1.0.3 - Plugin in progress development.grunt
