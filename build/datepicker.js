@@ -151,6 +151,10 @@
                  _this._$input.attr('id', _this._inputId);
              }
 
+             _this._isdatetime = false;
+             _this._isdate = false;
+             _this._istime = false;
+
             var patterns = {
                 "DD/MM/YYYY": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/),
                 "DD.MM.YYYY": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\.(0[1-9]|1[0-2])\.(\d{4})$/),
@@ -158,11 +162,25 @@
                 "YYYY/MM/DD": new RegExp(/^(\d{4})\/(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])$/),
                 "YYYY.MM.DD": new RegExp(/^(\d{4})\.(0[1-9]|1[0-2])\.(0[1-9]|1\d|2\d|3[01])$/),
                 "YYYY-MM-DD": new RegExp(/^(\d{4})\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01])$/),
-                "MM/DD/YYYY": new RegExp(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(\d{4})$/)
+                "MM/DD/YYYY": new RegExp(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(\d{4})$/),
+
+                "HH/mm/ss": new RegExp(/^(0[1-9]|2[0-3])\/(0[1-9]|5[0-9])\/(0[1-9]|5[0-9])$/),
+                "HH:mm:ss": new RegExp(/^(0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+
+                "DD/MM/YYYY HH:mm:ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(\d{4})\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+                "DD.MM.YYYY HH:mm:ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\.(0[1-9]|1[0-2])\.(\d{4})\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+                "DD-MM-YYYY HH:mm:ss": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\-(0[1-9]|1[0-2])\-(\d{4})\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+                "YYYY/MM/DD HH:mm:ss": new RegExp(/^(\d{4})\/(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+                "YYYY.MM.DD HH:mm:ss": new RegExp(/^(\d{4})\.(0[1-9]|1[0-2])\.(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+                "YYYY-MM-DD HH:mm:ss": new RegExp(/^(\d{4})\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01])\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+                "MM/DD/YYYY HH:mm:ss": new RegExp(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(\d{4})\ (0[1-9]|2[0-3])\:(0[1-9]|5[0-9])\:(0[1-9]|5[0-9])$/),
+
+
             };
 
             // Set date and datetime format
             if (typeof (_this._config.format) == 'string') {
+                _this._isdatetime = true;
                 _this._dateFormat = _this._config.format.charAt(0);
                 _this.inputDate = new Date(_this._$input.val().replace(' ', 'T'));
                 if(_this._config.debug)
@@ -173,19 +191,63 @@
                 $.each(patterns, function(key, pattern) {
                     if(pattern.test(_this._$input.val())) {
                         _this._dateFormat = key;
-
-                        //console.log(key);
                         var str = _this._$input.val();
                         var parts = str.match(pattern);
-                        //console.log(parts);
 
-                        if (parts && (_this._dateFormat == "DD/MM/YYYY" || _this._dateFormat == "DD.MM.YYYY" || _this._dateFormat == "DD-MM-YYYY")) {
+                        if (
+                            parts && (
+                                _this._dateFormat == "DD/MM/YYYY" ||
+                                _this._dateFormat == "DD.MM.YYYY" ||
+                                _this._dateFormat == "DD-MM-YYYY"
+                            )
+                        ) {
                             _this.inputDate = new Date(parseInt(parts[3], 10), parseInt(parts[2], 10) - 1, parseInt(parts[1], 10));
-                        } else if (parts && (_this._dateFormat == "YYYY/MM/DD" || _this._dateFormat == "YYYY.MM.DD" || _this._dateFormat == "YYYY-MM-DD")) {
+                            _this._isdate = true;
+                        } else if (
+                            parts && (
+                                _this._dateFormat == "YYYY/MM/DD" ||
+                                _this._dateFormat == "YYYY.MM.DD" ||
+                                _this._dateFormat == "YYYY-MM-DD"
+                            )
+                        ) {
                             _this.inputDate = new Date(parseInt(parts[1], 10), parseInt(parts[2], 10) - 1, parseInt(parts[3], 10));
+                            _this._isdate = true;
                         } else if (parts && (_this._dateFormat == "MM/DD/YYYY")) {
                             _this.inputDate = new Date(parseInt(parts[3], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+                            _this._isdate = true;
+                        } else if (
+                            parts && (
+                                _this._dateFormat == "HH/mm/ss" ||
+                                _this._dateFormat == "HH:mm:ss"
+                            )
+                        ) {
+                            _this.inputDate = new Date(1980, 1, 1, parseInt(parts[1], 10), parseInt(parts[2], 10), parseInt(parts[3], 10));
+                            _this._istime = true;
+                        } else if (
+                            parts && (
+                                _this._dateFormat == "DD/MM/YYYY HH:mm:ss" ||
+                                _this._dateFormat == "DD.MM.YYYY HH:mm:ss" ||
+                                _this._dateFormat == "DD-MM-YYYY HH:mm:ss"
+                            )
+                        ) {
+                            _this.inputDate = new Date(parseInt(parts[3], 10), parseInt(parts[2], 10) - 1, parseInt(parts[1], 10), parseInt(parts[4], 10), parseInt(parts[5], 10), parseInt(parts[6], 10));
+                            _this._isdatetime = true;
+                        } else if (
+                            parts && (
+                                _this._dateFormat == "YYYY/MM/DD HH:mm:ss" ||
+                                _this._dateFormat == "YYYY.MM.DD HH:mm:ss" ||
+                                _this._dateFormat == "YYYY-MM-DD HH:mm:ss"
+                            )
+                        ) {
+                            _this.inputDate = new Date(parseInt(parts[1], 10), parseInt(parts[2], 10) - 1, parseInt(parts[3], 10), parseInt(parts[4], 10), parseInt(parts[5], 10), parseInt(parts[6], 10));
+                            _this._isdatetime = true;
+                        } else if (
+                            parts && _this._dateFormat == "MM/DD/YYYY HH:mm:ss"
+                        ) {
+                            _this.inputDate = new Date(parseInt(parts[3], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10), parseInt(parts[4], 10), parseInt(parts[5], 10), parseInt(parts[6], 10));
+                            _this._isdatetime = true;
                         }
+
                         _this.currentDate = _this.inputDate;
                         console.log(_this.currentDate);
                     }
@@ -195,8 +257,6 @@
                     console.log('Autodetect date format', _this._dateFormat);
 
             }
-
-
 
             // Add base datepicker class to .input-group
             if(_this._$element)
@@ -237,12 +297,15 @@
             });
 
             // Call a public methods
-            _this._$popover.on('show.bs.popover', function() {
+            _this._$popover.on('show.bs.popover', function(event) {
 
                if(_this._config.debug)
                   console.log('Call `onShow` method', _this);
 
-               return _this._config.onShow.call(_this);
+                _this._$popover.not(event.target).popover("destroy");
+                $('.popover.popover-datepicker').remove();
+
+                return _this._config.onShow.call(_this);
 
             }).on('shown.bs.popover', function() {
 
@@ -266,6 +329,14 @@
                return _this._config.onHidden.call(_this);
 
             });
+
+             $(document).on('click', function(event) {
+                 _this._$popover.each(function() {
+                     if (!$(this).is(event.target) && $(this).has(event.target).length === 0 && $('.popover').has(event.target).length === 0) {
+                         (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
+                     }
+                 });
+             });
 
             // Registered event listeners
             _this._$element.on("click", 'a[data-set]', function (event) {
@@ -440,10 +511,6 @@
                    if (this._config.debug)
                        console.log('Call `showCurrent` method', this);
 
-                   this._isdatetime = true;
-                   this._isdate = true;
-                   this._istime = true;
-
                    // Vars
                    var header, html;
 
@@ -570,15 +637,15 @@
 
                        html += '</tbody>';
                        html += '</table>';
+
+                       this._header = header;
                    }
 
                    // Start rendering table of time setter
                    if(this._isdatetime || this._istime) {
 
-                       /*
-                       if(this._istime)
-                           header = 'Select time';
-                       */
+                       if(!html)
+                           html = '';
 
                        html += '<table>';
                        html += '<tbody>';
@@ -609,9 +676,10 @@
 
                        html += '</tbody>';
                        html += '</table>';
+
+                       this._header = false;
                    }
 
-                   this._header = header;
                    this._html = html;
 
                    return this.update();
@@ -685,12 +753,19 @@
                    console.log(this.currentDate);
 
                   var value = this._dateFormat.toString();
-                  value = value.replace('YYYY', this.zeroFormatting(newInputDate.getFullYear()));
+                  /*value = value.replace('YYYY', this.zeroFormatting(newInputDate.getFullYear()));
                   value = value.replace('MM', this.zeroFormatting((newInputDate.getMonth() + 1)));
                   value = value.replace('DD', this.zeroFormatting(newInputDate.getDate()));
                   value = value.replace('HH', this.zeroFormatting(newInputDate.getHours()));
                   value = value.replace('mm', this.zeroFormatting(newInputDate.getMinutes()));
-                  value = value.replace('ss', this.zeroFormatting(newInputDate.getSeconds()));
+                  value = value.replace('ss', this.zeroFormatting(newInputDate.getSeconds()));*/
+
+                   value = value.replace('YYYY', this.zeroFormatting(newInputDate.getFullYear()));
+                   value = value.replace('MM', this.zeroFormatting((newInputDate.getMonth() + 1)));
+                   value = value.replace('DD', this.zeroFormatting(newInputDate.getDate()));
+                   value = value.replace('HH', this.zeroFormatting(this.currentHour));
+                   value = value.replace('mm', this.zeroFormatting(this.currentMinute));
+                   value = value.replace('ss', this.zeroFormatting(this.currentSecond));
 
                   $input.val(value);
                   $input.attr('data-date-format', this._dateFormat);
