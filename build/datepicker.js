@@ -30,7 +30,7 @@
 
       // Public options and methods
       var defaults = {
-         format: 'YYYY-MM-DD HH:mm:ss', // string, default format of date/time
+         format: null, // string, default format of date/time
          className: '.datepicker', // string, class name of input group
          input: '.form-control', // string, selector or jQuery object of input
          toggle: '.input-group-btn > button', // string, selector of datepicker popover toggle
@@ -139,6 +139,8 @@
             _this._config = $.extend({}, defaults, config);
 
             // Configure variables
+            _this.inputDate = null;
+            _this.currentDate = null;
             _this._$element = $element instanceof jQuery ? $element : $($element);
             _this._$input = _this._config.input instanceof jQuery ? _this._config.input : _this._$element.find(_this._config.input);
             _this._$popover = _this._config.toggle instanceof jQuery ? _this._config.toggle : _this._$element.find(_this._config.toggle);
@@ -149,11 +151,50 @@
                  _this._$input.attr('id', _this._inputId);
              }
 
-             // Set datetime format
-            if (typeof (_this._config.format) == 'string')
-               _this._dateFormat = _this._config.format.charAt(0).toUpperCase();
-            else
-               _this._dateFormat = 'M';
+            var patterns = {
+                "DD/MM/YYYY": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/),
+                "DD.MM.YYYY": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\.(0[1-9]|1[0-2])\.(\d{4})$/),
+                "DD-MM-YYYY": new RegExp(/^(0[1-9]|1\d|2\d|3[01])\-(0[1-9]|1[0-2])\-(\d{4})$/),
+                "YYYY/MM/DD": new RegExp(/^(\d{4})\/(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])$/),
+                "YYYY.MM.DD": new RegExp(/^(\d{4})\.(0[1-9]|1[0-2])\.(0[1-9]|1\d|2\d|3[01])$/),
+                "YYYY-MM-DD": new RegExp(/^(\d{4})\-(0[1-9]|1[0-2])\-(0[1-9]|1\d|2\d|3[01])$/),
+                "MM/DD/YYYY": new RegExp(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(\d{4})$/)
+            };
+
+            // Set date and datetime format
+            if (typeof (_this._config.format) == 'string') {
+                _this._dateFormat = _this._config.format.charAt(0);
+                _this.inputDate = new Date(_this._$input.val().replace(' ', 'T'));
+                if(_this._config.debug)
+                    console.log('Set date format', _this._dateFormat);
+
+            } else {
+                //_this._dateFormat = 'M';
+                $.each(patterns, function(key, pattern) {
+                    if(pattern.test(_this._$input.val())) {
+                        _this._dateFormat = key;
+
+                        //console.log(key);
+                        var str = _this._$input.val();
+                        var parts = str.match(pattern);
+                        //console.log(parts);
+
+                        if (parts && (_this._dateFormat == "DD/MM/YYYY" || _this._dateFormat == "DD.MM.YYYY" || _this._dateFormat == "DD-MM-YYYY")) {
+                            _this.inputDate = new Date(parseInt(parts[3], 10), parseInt(parts[2], 10) - 1, parseInt(parts[1], 10));
+                        } else if (parts && (_this._dateFormat == "YYYY/MM/DD" || _this._dateFormat == "YYYY.MM.DD" || _this._dateFormat == "YYYY-MM-DD")) {
+                            _this.inputDate = new Date(parseInt(parts[1], 10), parseInt(parts[2], 10) - 1, parseInt(parts[3], 10));
+                        } else if (parts && (_this._dateFormat == "MM/DD/YYYY")) {
+                            _this.inputDate = new Date(parseInt(parts[3], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
+                        }
+                        _this.currentDate = _this.inputDate;
+                        console.log(_this.currentDate);
+                    }
+                });
+
+                if(_this._config.debug)
+                    console.log('Autodetect date format', _this._dateFormat);
+
+            }
 
 
 
@@ -165,9 +206,6 @@
             _this._header = null;
             _this._html = null;
 
-            // Configure default unput date
-            _this.currentDate = null;
-
             // Configure date and time variables
             _this.currentYear = null;
             _this.currentMonth = null;
@@ -178,8 +216,7 @@
 
             // Set the datepicker current date
             if(_this._$input) {
-               var inputDate = new Date(_this._$input.val().replace(' ', 'T'));
-               _this.showCurrent(inputDate.getUTCFullYear(), inputDate.getUTCMonth(), inputDate.getUTCDate(), inputDate.getUTCHours(), inputDate.getUTCMinutes(), inputDate.getUTCSeconds());
+               _this.showCurrent(_this.inputDate.getFullYear(), _this.inputDate.getMonth(), _this.inputDate.getDate(), _this.inputDate.getHours(), _this.inputDate.getMinutes(), _this.inputDate.getSeconds());
             } else {
                _this.showCurrent();
             }
@@ -414,35 +451,37 @@
                    if(!this.currentDate)
                        this.currentDate = new Date();
 
+                   console.log(this.currentDate);
+
                    if (year) // Set the current year
                        this.currentYear = parseInt(year);
                    else
-                       this.currentYear = this.currentDate.getUTCFullYear();
+                       this.currentYear = this.currentDate.getFullYear();
 
                    if (month) // Set the current month
                        this.currentMonth = parseInt(month);
                    else
-                       this.currentMonth = this.currentDate.getUTCMonth();
+                       this.currentMonth = this.currentDate.getMonth();
 
                    if (day) // Set the day
                        this.currentDay = parseInt(day);
                    else
-                       this.currentDay = this.currentDate.getUTCDate();
+                       this.currentDay = this.currentDate.getDate();
 
                    if (hour) // Set the hour
                        this.currentHour = parseInt(hour);
                    else
-                       this.currentHour = this.currentDate.getUTCHours();
+                       this.currentHour = this.currentDate.getHours();
 
                    if (minute) // Set the minute
                        this.currentMinute = parseInt(minute);
                    else
-                       this.currentMinute = this.currentDate.getUTCMinutes();
+                       this.currentMinute = this.currentDate.getMinutes();
 
                    if (second) // Set the second
                        this.currentSecond = parseInt(second);
                    else
-                       this.currentSecond = this.currentDate.getUTCSeconds();
+                       this.currentSecond = this.currentDate.getSeconds();
 
                    var prevYearLink = '<a href="#" data-rel="prev-year" class="btn btn-small pull-left">&lt;&lt;</a>';
                    var nextYearLink = '<a href="#" data-rel="next-year" class="btn btn-small pull-right">&gt;&gt;</a>';
@@ -634,18 +673,31 @@
             setDate: {
                value: function setDate(newDate) {
 
-                   console.log(newDate);
-
-                  if(this._config.debug)
-                     console.log('Call `setDate` method', this);
-
                   var $input = $(this._$element).find('#' + this._inputId);
                   var newInputDate = new Date(newDate);
-                  var value = this.zeroFormatting(newInputDate.getUTCFullYear()) + '-' + this.zeroFormatting((newInputDate.getUTCMonth() + 1)) + '-' + this.zeroFormatting(newInputDate.getUTCDate()) + ' ' + this.zeroFormatting(newInputDate.getUTCHours()) + ':' + this.zeroFormatting(newInputDate.getUTCMinutes()) + ':' + this.zeroFormatting(newInputDate.getUTCSeconds());
+
+                  if(newInputDate)
+                    this.currentDate = newInputDate;
+
+                  if(this._config.debug)
+                      console.log('Call `setDate` method', newInputDate);
+
+                   console.log(this.currentDate);
+
+                  var value = this._dateFormat.toString();
+                  value = value.replace('YYYY', this.zeroFormatting(newInputDate.getFullYear()));
+                  value = value.replace('MM', this.zeroFormatting((newInputDate.getMonth() + 1)));
+                  value = value.replace('DD', this.zeroFormatting(newInputDate.getDate()));
+                  value = value.replace('HH', this.zeroFormatting(newInputDate.getHours()));
+                  value = value.replace('mm', this.zeroFormatting(newInputDate.getMinutes()));
+                  value = value.replace('ss', this.zeroFormatting(newInputDate.getSeconds()));
+
                   $input.val(value);
+                  $input.attr('data-date-format', this._dateFormat);
                   this.currentDate = newInputDate;
                }
-            }, setTime: {
+            },
+            setTime: {
                  value: function setTime() {
                      var newDate = this.zeroFormatting(this.currentYear) + '-' + this.zeroFormatting(parseInt(this.currentMonth) + 1) + '-' + this.zeroFormatting(this.currentDay);
 
