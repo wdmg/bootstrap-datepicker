@@ -2,7 +2,7 @@
  * Date and time picker for Bootstrap 3
  *
  * @category        jQuery Plugin
- * @version         1.0.3
+ * @version         1.0.4
  * @author          Alexsander Vyshnyvetskyy <alex.vyshnyvetskyy@gmail.com>
  * @link            https://github.com/wdmg/bootstrap-datepicker
  * @copyright       Copyright (c) 2019 W.D.M.Group, Ukraine

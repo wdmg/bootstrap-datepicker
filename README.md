@@ -43,6 +43,7 @@ For example use the input-group:
 | className     | string   | '.datepicker' | Class name of input group.  |
 | input         | string   | '.form-control' | Selector or jQuery object of input. |
 | toggle        | string   | '.input-group-btn > button' | Selector of datepicker popover toggle. |
+| placement     | string   | 'auto' | Default placement of popover. |
 | template      | string   | `<div class="popover popover-datepicker" role="tooltip"...></div>` | Popover template. |
 | daysStrings   | array    | [{'short': 'Mon', 'full': 'Monday'}, ...] | Days of week, starting on Monday. |
 | monthsStrings | array    | [{'short': 'Jan', 'full': 'January'}, ...] | Months, starting on January. |
@@ -90,4 +91,4 @@ For example use the input-group:
 
 
 # Status and version
-* v.1.0.3 - Plugin in progress development.grunt
+* v.1.0.4 - Plugin in progress development.grunt
