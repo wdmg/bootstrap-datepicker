@@ -91,4 +91,4 @@ For example use the input-group:
 
 
 # Status and version
-* v.1.0.4 - Plugin in progress development
+* v.1.1.0 - Plugin in progress development
