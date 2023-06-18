@@ -91,4 +91,5 @@ For example use the input-group:
 
 
 # Status and version
+* v.1.1.1 - Fix init datetime val()
 * v.1.1.0 - Plugin in progress development
